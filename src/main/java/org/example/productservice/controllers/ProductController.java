@@ -5,10 +5,11 @@ import org.example.productservice.exceptions.ProductNotFoundException;
 import org.example.productservice.models.Product;
 import org.example.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -17,13 +18,33 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/{id}")
+    @PostMapping("/create")
+    public Product createproduct(@RequestBody Product product) {
+        return productService.createProduct(product);
+    }
+
+    @PutMapping("/update/{id}")
+    public Product updateProduct(@PathVariable("id") Long id,  @RequestBody Product product) throws ProductNotFoundException{
+        return productService.updateProductById(id, product);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public Product deleteProduct(@PathVariable("id") Long id) throws ProductNotFoundException{
+        return productService.deleteProductById(id);
+    }
+
+    @GetMapping("/get/{id}")
     public Product getProduct(@PathVariable("id") long id)  throws ProductNotFoundException {
         return productService.getProductById(id);
     }
 
     @GetMapping("/category/{category}")
-    public Product getProductByCategory(@PathVariable("category") String category)  throws CategoryNotFoundException {
-        return productService.getProductByCategory(category.trim());
+    public ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") String category)  throws CategoryNotFoundException {
+        return new ResponseEntity<>(productService.getProductByCategory(category.trim()), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping("/createbulk")
+    public ResponseEntity<String> createBulk(@RequestBody List<Product> products) {
+        return new ResponseEntity<>(productService.createBulk(products), HttpStatusCode.valueOf(200));
     }
 }
