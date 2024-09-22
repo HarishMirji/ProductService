@@ -5,6 +5,7 @@ import org.example.productservice.exceptions.ProductNotFoundException;
 import org.example.productservice.models.Product;
 import org.example.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +44,15 @@ public class ProductController {
         return new ResponseEntity<>(productService.getProductByCategory(category.trim()), HttpStatusCode.valueOf(200));
     }
 
-    @GetMapping("/createbulk")
+    @PostMapping("/createbulk")
     public ResponseEntity<String> createBulk(@RequestBody List<Product> products) {
         return new ResponseEntity<>(productService.createBulk(products), HttpStatusCode.valueOf(200));
+    }
+
+    @GetMapping()
+    public  ResponseEntity<Page<Product>> getAllproducts(
+            @RequestParam(value = "pageSize", defaultValue = "20") int pageSize,
+            @RequestParam(value = "pageNum", defaultValue = "0") int pageNum) {
+        return ResponseEntity.ok(productService.getAllproducts(pageSize, pageNum));
     }
 }

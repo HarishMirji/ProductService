@@ -6,6 +6,9 @@ import org.example.productservice.models.Product;
 import org.example.productservice.repositories.ProductRepository;
 import org.example.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -74,6 +77,13 @@ public class ProductServiceImpl implements ProductService {
         products = filterNewProducts(products);
         productRepository.saveAll(products);
         return "Products added successfully";
+    }
+
+    @Override
+    public Page<Product> getAllproducts(int pageSize, int pageNum) {
+        return productRepository.findAll(PageRequest.of(pageNum, pageSize,
+                Sort.by("name").descending().and
+                        (Sort.by("category"))));
     }
 
     public List<Product> filterNewProducts(List<Product> newProducts) {

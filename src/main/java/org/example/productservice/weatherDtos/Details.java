@@ -1,4 +1,4 @@
-package org.example.productservice.dto;
+package org.example.productservice.weatherDtos;
 
 import lombok.Data;
 

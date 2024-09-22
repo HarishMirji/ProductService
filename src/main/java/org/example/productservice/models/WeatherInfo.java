@@ -2,10 +2,10 @@ package org.example.productservice.models;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-import org.example.productservice.dto.City;
-import org.example.productservice.dto.Coord;
-import org.example.productservice.dto.Details;
-import org.example.productservice.dto.Weather;
+import org.example.productservice.weatherDtos.City;
+import org.example.productservice.weatherDtos.Coord;
+import org.example.productservice.weatherDtos.Details;
+import org.example.productservice.weatherDtos.Weather;
 
 import java.util.List;
 
