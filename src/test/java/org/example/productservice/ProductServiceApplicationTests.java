@@ -1,6 +1,6 @@
 package org.example.productservice;
 
-import org.example.productservice.projections.ProductProjection;
+import org.example.productservice.repositories.projections.ProductProjection;
 import org.example.productservice.repositories.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

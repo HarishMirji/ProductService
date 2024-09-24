@@ -1,7 +1,7 @@
 package org.example.productservice.repositories;
 
 import org.example.productservice.models.Product;
-import org.example.productservice.projections.ProductProjection;
+import org.example.productservice.repositories.projections.ProductProjection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
