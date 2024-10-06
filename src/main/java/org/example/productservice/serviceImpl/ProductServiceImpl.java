@@ -64,6 +64,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll().stream().collect(Collectors.toList());
+    }
+
+    @Override
     public List<Product> getProductByCategory(String category) throws CategoryNotFoundException {
         Product product = productRepository.findFirstByCategory(category);
         if(product.getCategory() == null) {
